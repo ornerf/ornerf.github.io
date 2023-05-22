@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="OR-NeRF.">
+    <meta name="keywords" content="Multiview Segmentation, Neural Radiance Fields, 3D Editing">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OR-NeRF</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title text-muted">
+                        <!--            <span class="text-primary">߷</span>-->
+                        <!--            <span class="text-dark">OR-NeRF</span>: Multiview <span class="text-dark">S</span>egmentation and <span class="text-dark">P</span>erceptual <span class="text-dark">In</span>painting with <span class="text-dark">Ne</span>ural <span class="text-dark">R</span>adiance <span class="text-dark">F</span>ields-->
+                        <span class="text-dark"><span class="text-primary">OR-NeRF</span>: <span
+                                class="text-primary">O</span>bject <span class="text-primary">R</span>emoving from 3D Scenes Guided by Multiview Segmentation with <span
+                                class="text-primary">Ne</span>ural <span class="text-primary">R</span>adiance <span
+                                class="text-primary">F</span>ields</span>
+                    </h1>
+                    <!--          <p class="is-size-5 text-center">-->
+                    <!--	            CVPR 2023-->
+                    <!--          </p>-->
+                    <p class="is-size-5 text-center">
+                        arXiv 2023
+                    </p>
+                    <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=dSRAwwYAAAAJ">Youtan Yin</a><sup>*1</sup>,</span>
+                        <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=6bdPeKcAAAAJ">Zhoujie Fu</a><sup>*1</sup>,</span>
+                        <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=afDvaa8AAAAJ">Fan Yang</a><sup>1</sup>,
+            </span>
+                        <span class="author-block">
+              <a href="https://scholar.google.com.au/citations?user=ZudEhvcAAAAJ&hl=en">Guosheng Lin</a><sup>1</sup>
+            </span>
+                    </div>
+
+                    <div class="is-size-6 publication-authors">
+                        <span class="author-block text-muted">{youtan001, zhoujie001, fan007}@e.ntu.edu.sg,</span>
+                        <span class="author-block text-muted">gslin@ntu.edu.sg</span>
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block"><sup>1</sup>Nanyang Technological University, Singapore</span>
+                        <br>
+                        <span class="author-block"><sup>*</sup>Denotes equal contribution</span>
+                    </div>
+
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2305.10503"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+                            <span class="link-block">
+                <a href="data/files/supplementary%20material.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary Material</span>
+                </a>
+              </span>
+                            <!--              <span class="link-block">-->
+                            <!--                <a href="https://youtu.be/WEgJf1WC5SQ"-->
+                            <!--                   class="external-link button is-normal is-rounded is-dark">-->
+                            <!--                  <span class="icon">-->
+                            <!--                      <i class="fab fa-youtube"></i>-->
+                            <!--                  </span>-->
+                            <!--                  <span>Video</span>-->
+                            <!--                </a>-->
+                            <!--              </span>-->
+                            <span class="link-block">
+                <a href="https://github.com/cuteyyt/cor-nerf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+                            <!--              <span class="link-block">-->
+                            <!--                <a href="https://drive.google.com/drive/folders/1N7D4-6IutYD40v9lfXGSVbWrd47UdJEC?usp=share_link" class="external-link button is-normal is-rounded is-dark">-->
+                            <!--                  <span class="icon">-->
+                            <!--                      <i class="far fa-images"></i>-->
+                            <!--                  </span>-->
+                            <!--                  <span>Data</span>-->
+                            <!--                  </a>-->
+                            <!--              </span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                    <img src="data/images/overview.png" style="float: right; margin-left:20px; margin-bottom: 10px"
+                         width="4340" alt="An overview of OR-NeRF"/>
+                    <p class="content has-text-justified">
+                        The emergence of Neural Radiance Fields (NeRF) for novel view synthesis has led to increased
+                        interest in 3D scene editing.
+                        One important task in editing is removing objects from a scene while ensuring visual
+                        reasonability and multiview consistency.
+                        However, current methods face challenges such as time-consuming object labelling, limited
+                        capability to remove specific targets, and compromised rendering quality after removal.
+                        This paper proposes a novel object-removing pipeline, named OR-NeRF,
+                        that can remove objects from 3D scenes with either <b>point</b> or <b>text</b> prompts on a <b>single</b>
+                        view, achieving better performance in less time than previous works.
+                        Our method uses a points projection strategy to rapidly spread user annotations to all views,
+                        significantly reducing the processing burden.
+                        This algorithm allows us to leverage the recent 2D segmentation model Segment-Anything (SAM) to
+                        predict masks with improved precision and efficiency.
+                        Additionally, we obtain colour and depth priors through 2D inpainting methods.
+                        Finally, our algorithm employs depth supervision and perceptual loss for scene reconstruction to
+                        maintain consistency in geometry and appearance after object removal.
+                        Experimental results demonstrate that our method achieves better editing quality with less time
+                        than previous works, considering both quality and quantity.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!--    <div class="columns is-centered has-text-centered">-->
+        <!--      <div class="column is-four-fifths">-->
+        <!--        <h2 class="title is-3">Video</h2>-->
+        <!--        <div class="publication-video">-->
+        <!--          <iframe src="https://www.youtube.com/embed/WEgJf1WC5SQ"-->
+        <!--                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+        <!--        </div>-->
+        <!--      </div>-->
+        <!--    </div>-->
+
+    </div>
+</section>
+
+<!--<section class="section">-->
+<!--  <div class="container is-max-desktop">-->
+<!--    &lt;!&ndash; Method. &ndash;&gt;-->
+<!--    <div class="columns is-centered has-text-centered">-->
+<!--      <div class="column is-full">-->
+<!--        <h2 class="title is-3">Inpainting Pipeline</h2>-->
+<!--        <div class="content">-->
+<!--          <img src="data/images/overview2.png" width="1874" alt=""/>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="content has-text-justified">-->
+<!--          <p>-->
+<!--            An overview of our proposed inpainting pipeline. -->
+<!--            Using the posed input images and their corresponding masks (upper and lower left insets), -->
+<!--            we obtain (i) an initial NeRF with the target object present and (ii) the set of inpainted input RGB images with the target object removed (but with view inconsistencies). -->
+<!--            The initial NeRF (i) is used to compute depth values, which we inpaint to obtain depth images as geometric priors (upper-right inset). -->
+<!--            The inpainted RGB images (ii), which act as appearance priors, are used in conjunction with the depth priors, -->
+<!--            to fit a 3D consistent NeRF to the inpainted scene (lower-right inset).-->
+<!--          </p>-->
+<!--          <br>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;/ Method. &ndash;&gt;-->
+<!--  </div>-->
+<!--</section>-->
+
+
+<section class="hero is-light is-small">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h2 class="title">Scene Object Removal Results</h2>
+            <div id="results-carousel" class="carousel results-carousel">
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/2_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/2_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/3_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/3_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/4_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/4_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/7_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/7_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/10_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/10_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/12_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/12_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/book_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/book_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/trash_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/trash_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq3_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq3_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq6_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq6_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq10_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq10_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq11_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq11_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq13_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq13_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq16_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq16_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq17_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq17_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq21_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/qq21_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/horns_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/horns_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/room_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/room_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/fortress_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/fortress_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="item rounded-0 border-0 item-2">
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/data5_piano_ori.mp4" type="video/mp4">
+                    </video>
+                    <video poster="" autoplay muted loop preload="none" class="w-auto" style="height:22vh;">
+                        <source src="data/videos/data5_piano_del.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br/>
+
+
+<!--<section class="hero teaser">-->
+<!--  <div class="container is-max-desktop has-text-centered shadow-sm">-->
+<!--    <br/>-->
+<!--    <h2 class="title">Sample Scene from Our Dataset</h2>-->
+<!--      <div class="row justify-content-around">-->
+<!--        <div class="col-6">-->
+<!--          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">-->
+<!--            <source src="data/videos/pot1.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--          <h5 class="subtitle">Original Scene</h5>-->
+<!--        </div>-->
+<!--        <div class="col-6">-->
+<!--          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">-->
+<!--            <source src="data/videos/pot2.mp4"-->
+<!--                    type="video/mp4">-->
+<!--          </video>-->
+<!--          <h5 class="subtitle">Our Inpainting Result</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!--<br/>-->
+
+
+<!--<section class="hero teaser">-->
+<!--  <div class="hero-body">-->
+<!--  <div class="container is-max-desktop has-text-centered">-->
+<!--    <h2 class="title">Inpainting Stages</h2>-->
+<!--      <div class="row d-flex justify-content-between">-->
+<!--        <div class=col-3>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/interactive_seg1.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/interactive_seg2.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/interactive_seg3.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <h2 class="subtitle has-text-centered">1) Interactive Segmentation</h2>-->
+<!--        </div>-->
+
+<!--        <div class="col-1 align-self-center">-->
+<!--          <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">-->
+<!--            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>-->
+<!--          </svg>-->
+<!--        </div>-->
+
+<!--        <div class="col-3">-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/table3.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/statue5.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/statue3.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <h2 class="subtitle has-text-centered">2) Multiview Segmentation</h2>-->
+<!--        </div>-->
+
+<!--        <div class="col-1 align-self-center">-->
+<!--          <svg xmlns="http://www.w3.org/2000/svg" width="100%" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">-->
+<!--            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>-->
+<!--          </svg>-->
+<!--        </div>-->
+
+<!--        <div class="col-3">-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/table2.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/statue4.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            <video poster="" autoplay muted loop height="100%" class="rounded pb-1" preload="none">-->
+<!--              <source src="data/videos/statue2.mp4"-->
+<!--                      type="video/mp4">-->
+<!--            </video>-->
+<!--          </div>-->
+<!--          <h2 class="subtitle has-text-centered">3) Multiview Inpainting</h2>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--  </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!--<br/>-->
+
+<section class="hero teaser">
+    <div class="container is-max-desktop has-text-centered shadow-sm">
+        <br/>
+        <h2 class="title">Comparison with Other Work</h2>
+        <div class="row">
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/qq11_nerf.mp4"
+                            type="video/mp4">
+                </video>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/qq11_spinnerf.mp4"
+                            type="video/mp4">
+                </video>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/qq11_ours_nerf.mp4"
+                            type="video/mp4">
+                </video>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/qq11_ours_tensorf.mp4"
+                            type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/10_nerf.mp4"
+                            type="video/mp4">
+                </video>
+                <h5 class="subtitle">NeRF</h5>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/10_spinnerf.mp4"
+                            type="video/mp4">
+                </video>
+                <h5 class="subtitle">SPIn-NeRF</h5>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/10_ours_nerf.mp4"
+                            type="video/mp4">
+                </video>
+                <h5 class="subtitle">Ours-NeRF</h5>
+            </div>
+            <div class="col-3">
+                <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+                    <source src="data/videos/10_ours_tensorf.mp4"
+                            type="video/mp4">
+                </video>
+                <h5 class="subtitle">Ours-TensoRF</h5>
+            </div>
+        </div>
+    </div>
+</section>
+<br/>
+
+
+<!--<section class="hero teaser">-->
+<!--  <div class="hero-body">-->
+<!--    <div class="container is-max-desktop">-->
+<!--      <div class="column is-full">-->
+<!--        <h2 class="title has-text-centered">On the Importance of the Perceptual Loss</h2>-->
+<!--          <div class="row d-flex justify-content-around">-->
+<!--            <div class="content has-text-justified">-->
+<!--              <p class="content has-text-justified">Here, we demonstrate the importance of using the perceputal loss instead of direct MSE optimization on a 2D toy example. Consider the following RGB image and the synthetic square mask. Based on them, we create the 16 different possible 2D inapintings. Note that inpainting is an ill-posed problem and all of the following are plausible answers for the task of inpainting the image:</p>-->
+<!--            </div>-->
+<!--            <div class="col-4 p-1">-->
+<!--              <img src="data/toy_example/pattern.png" alt="">-->
+<!--              <h2 class="subtitle has-text-centered">Sample Image</h2>-->
+<!--            </div>-->
+<!--            <div class="col-4 p-1">-->
+<!--              <img src="data/toy_example/masked.png" alt="">-->
+<!--              <h2 class="subtitle has-text-centered">Masked Image</h2>-->
+<!--            </div>-->
+<!--            <div class="col-4 p-1">-->
+<!--              <img src="data/toy_example/grid.png" alt="">-->
+<!--              <h2 class="subtitle has-text-centered">16 Different Inpaintings</h2>-->
+<!--            </div>-->
+<!--            <div class="content has-text-justified">-->
+<!--              <p class="content">Now, we start optimizing an image based on these 16 outputs. In the first attempt, the Mean Squared Error (MSE) loss is used, while in the alternative approach, we use a perceptual loss as proposed in the paper for the masked region:</p>-->
+<!--            </div>-->
+<!--            <div class="row justify-content-around">-->
+<!--              <div class="col-8">-->
+<!--                <video poster="" muted controls preload="metadata" class="w-auto" style="">-->
+<!--                <source src="data/toy_example/toy.mp4"-->
+<!--                        type="video/mp4">-->
+<!--                </video>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="content has-text-justified">-->
+<!--              <p class="content">As evident in the results, even after these few steps of fitting the output image on the 16 input inpaintings, the perceptual loss has led to a more detailed and accurate texture. In contrast, the MSE loss has difficulties when facing inconsistent inputs, and has converged to a blurry inpainted region. This blurry area is close to the average of all of the inputs. </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">Citation</h2>
+        <p>If you find our work helpful, please consider cite us:</p>
+        <pre><code>@misc{yin2023ornerf,
+      title={OR-NeRF: Object Removing from 3D Scenes Guided by Multiview Segmentation with Neural Radiance Fields},
+      author={Youtan Yin and Zhoujie Fu and Fan Yang and Guosheng Lin},
+      year={2023},
+      eprint={2305.10503},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p>Website template borrowed from <a href="https://spinnerf3d.github.io/">SPIn-NeRF</a>.</p>
+                    <p>
+                        This website is licensed under a <a rel="license"
+                                                            href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                        Commons Attribution-ShareAlike 4.0 International License</a>.
+                    </p>
+                    <p>
+                        This means you are free to borrow the <a
+                            href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+                        we just ask that you link back to this page in the footer.
+                        Please remember to remove the analytics code included in the header of the website which
+                        you do not want on your website.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
